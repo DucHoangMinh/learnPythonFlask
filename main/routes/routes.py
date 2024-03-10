@@ -1,6 +1,6 @@
 from flask import render_template
-from models.Item import Item
-from routes import app
+from main.models import Item
+from main import app
 @app.route('/')
 @app.route('/home')
 def home_page():
