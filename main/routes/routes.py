@@ -1,5 +1,5 @@
 from flask import render_template
-from main.models import Item
+from main.models.Item import Item
 from main import app
 @app.route('/')
 @app.route('/home')
