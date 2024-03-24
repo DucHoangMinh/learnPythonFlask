@@ -3,6 +3,7 @@ from main.models.Item import Item
 from main import app, db
 from main.models.User import User
 from main.utils.forms import RegisterForm, LoginForm
+from flask_login import login_user
 
 
 @app.route('/')
@@ -30,7 +31,15 @@ def register_page():
             flash(f'Error when creating user: {err_msg}', category="danger")
     return render_template('register.html', form=form)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()
+    if form.validate_on_submit():
+        attempted_user = User.query.filter_by(username=form.username.data).first()
+        if attempted_user and attempted_user.check_password(plain_text_password=form.password.data):
+            login_user(attempted_user)
+            flash('Successfully logged in', category="success")
+            return redirect(url_for('market_page'))
+        else:
+            flash('Username and password are not match. Please try again', category="danger")
     return render_template('login.html', form=form)
