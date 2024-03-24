@@ -27,6 +27,12 @@
             <br>
             {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
         </form>
+        <div>
+            <p>
+                You have an acount?
+                <a href="{{ url_for('login_page') }}">Login</a>
+            </p>
+        </div>
     </div>
 </body>
 {% endblock %}
